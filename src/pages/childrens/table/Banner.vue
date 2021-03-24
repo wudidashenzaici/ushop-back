@@ -20,10 +20,10 @@
         label="状态">
         <template slot-scope="scope">
           <el-tag type="warning" v-if="scope.row.status == 2" size="small"
-            >已启用</el-tag
+            >未启用</el-tag
           >
           <el-tag type="success" v-if="scope.row.status == 1" size="small"
-            >未启用</el-tag
+            >已启用</el-tag
           >
         </template>
       </el-table-column>

@@ -27,8 +27,8 @@
           </el-select>
         </el-form-item>
         <el-form-item label="选择商品" prop="goodsid">
-          <el-select v-model="form.goodsid" placeholder="请选择"  @change="firstCate">
-            <el-option v-for="item in CateList" :key="item.id" :label="item.catename" :value="item.id"></el-option>
+          <el-select v-model="form.goodsid" placeholder="请选择">
+            <el-option v-for="item in goodsList" :key="item.id" :label="item.goodsname" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="状态" prop="status">
@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import { number } from 'echarts';
 import {mapState,mapActions} from "vuex"
 import {addSeckLists,editSeckLists} from '../../../model/seckill'
 export default {
@@ -107,15 +106,21 @@ export default {
     };
   },
   computed:{
-   ...mapState({seckList:state=>state.seckill.seckLists,CateList: (state) => state.CateList.CateLists})
+   ...mapState({seckList:state=>state.seckill.seckLists,CateList: (state) => state.CateList.CateLists,goodsCoust:state=>state.goods.goodsCoust,goodsList:state=>state.goods.goodsList})
   },
   created() {
       this.getSeckList()
       this.getCategoryList()
+      this.getGoodsCount()
+      this.getGoodsList()
+  },
+  mounted() {
+    
   },
   methods: {
       ...mapActions("seckill",["getSeckList"]),
       ...mapActions("CateList", ["getCategoryList"]),
+      ...mapActions("goods", ["getGoodsCount"]),
       ...mapActions("goods", ["getGoodsList"]),
       addRoleList(){
         this.$refs.form.validate((valid) => {
